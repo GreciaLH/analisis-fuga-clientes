@@ -1,0 +1,22 @@
+# Virtual environments
+venv/
+env/
+ENV/
+.venv/
+.env/
+
+# Archivos de datos
+*.csv
+*.xlsx
+*.xls
+*.json
+*.parquet
+*.h5
+*.hdf5
+*.pkl
+*.pickle
+
+# Datasets específicos
+Telco-Customer-Churn.csv
+data/
+datasets/
