@@ -11,25 +11,6 @@ Este proyecto tiene como objetivo identificar los factores que contribuyen a la 
 - **Proporcionar insights accionables** para estrategias de retención
 - **Cuantificar el impacto** de diferentes factores en la decisión de abandono
 
-## 📈 Resultados Clave
-
-### Magnitud del Problema
-- **Tasa de fuga actual: 26.54%** (1,869 de 7,043 clientes)
-- Uno de cada cuatro clientes abandonó la compañía en el período analizado
-
-### Principales Hallazgos
-
-#### 🔥 Factores Críticos que Impulsan la Fuga:
-1. **Tipo de Contrato**: Clientes con contratos mes a mes tienen una tasa de fuga dramáticamente mayor
-2. **Configuración del Servicio**: Clientes con fibra óptica sin servicios adicionales (seguridad, soporte) son altamente propensos a irse
-3. **Método de Pago**: El cheque electrónico genera mayor fricción y abandono
-4. **Antigüedad**: Los primeros 12 meses son críticos - clientes nuevos tienen mayor riesgo
-
-#### 🛡️ Factores que Promueven la Retención:
-1. **Contratos a largo plazo** (1-2 años)
-2. **Servicios adicionales** (seguridad online, soporte técnico)
-3. **Métodos de pago automáticos** (tarjeta de crédito, transferencia bancaria)
-4. **Relación establecida** (clientes con más de 48 meses)
 
 ## 🔧 Tecnologías Utilizadas
 
@@ -37,9 +18,14 @@ Este proyecto tiene como objetivo identificar los factores que contribuyen a la 
 # Librerías principales
 pandas          # Manipulación de datos
 numpy           # Operaciones numéricas
-matplotlib       # Visualización básica
+matplotlib      # Visualización básica
 seaborn         # Visualización estadística
-scikit-learn     # Machine Learning
+scikit-learn    # Machine Learning
+
+# Librerías especializadas
+imbalanced-learn # Técnicas de balanceo (SMOTE)
+collections     # Análisis de distribuciones
+warnings        # Manejo de alertas
 ```
 
 ## 📁 Estructura del Proyecto
@@ -65,15 +51,18 @@ analisis-fuga-clientes/
 # Clonar o descargar el proyecto
 cd analisis-fuga-clientes
 
-# Instalar dependencias
+# Instalar dependencias básicas
 pip install pandas numpy matplotlib seaborn scikit-learn
 
+# Instalar dependencias adicionales para balanceo
+pip install imbalanced-learn
+
 # Ejecutar Jupyter Notebook
-jupyter notebook eda.ipynb
+jupyter notebook customer_churn.ipynb
 ```
 
 ### Ejecución
-1. Abrir `eda.ipynb` en Jupyter Notebook
+1. Abrir `customer_churn.ipynb` en Jupyter Notebook
 2. Ejecutar todas las celdas secuencialmente
 3. El análisis está organizado en secciones lógicas para fácil seguimiento
 
@@ -111,42 +100,38 @@ jupyter notebook eda.ipynb
 
 ## 📋 Resultados del Modelo
 
-### Rendimiento
-- **Precisión general**: ~80%
-- **Identificación de churn**: Alto recall para clientes en riesgo
-- **Interpretabilidad**: Coeficientes claros para cada factor de riesgo
+### Técnicas de Balanceo Evaluadas
+El proyecto abordó el **problema crítico del desbalanceo de clases** (73% No Churn vs 27% Churn) implementando y comparando:
+
+1. **SMOTE**: Sobremuestreo sintético de la clase minoritaria
+2. **Class Weight Balancing**: Ajuste automático de pesos por clase
+3. **Threshold Tuning**: Optimización del umbral de decisión ✅ **GANADOR**
+
+### Rendimiento Final (Threshold Tuning)
+- **Accuracy**: 80.4% - Precisión general excelente
+- **Precision**: 50.4% - Balance aceptable de falsos positivos  
+- **Recall**: 79.4% - **Detecta casi 8 de cada 10 clientes que se van**
+- **F1-Score**: 0.617 - Mejor balance general entre métricas
+- **Umbral optimizado**: 35% (vs 50% default)
+
+### Mejora vs Modelo Base
+- **Recall original**: 49.2% → **Recall final**: 79.4%
+- **Mejora**: **+61.4%** en detección de clientes en riesgo
+- **Impacto**: +113 clientes adicionales identificables para retención
 
 ### Factores más Influyentes (según el modelo)
-1. Contrato mes a mes vs. contratos largos
-2. Servicios de seguridad y soporte técnico
-3. Método de pago electrónico
-4. Antigüedad del cliente
-5. Tipo de servicio de internet
+1. **Contratos mes a mes** - Factor de riesgo #1
+2. **Servicios de seguridad/soporte técnico** - Ausencia aumenta riesgo
+3. **Método de pago electrónico** - Genera fricción y abandono
+4. **Antigüedad del cliente** - Primeros 12 meses críticos
+5. **Configuración fibra óptica** - Sin servicios adicionales problemática
 
-## 💡 Recomendaciones de Negocio
 
-### Acciones Inmediatas
-1. **Incentivos para contratos largos**: Descuentos o beneficios para contratos anuales
-2. **Mejora del onboarding**: Programa especial para primeros 12 meses
-3. **Promoción de servicios adicionales**: Bundles atractivos con seguridad y soporte
-4. **Optimización de pagos**: Migrar usuarios de cheque electrónico a métodos automáticos
 
-### Estrategias a Medio Plazo
-1. **Segmentación proactiva**: Identificar clientes en riesgo antes de que se vayan
-2. **Programa de retención**: Contacto proactivo con clientes de alto riesgo
-3. **Mejora de experiencia**: Especial atención a clientes con fibra óptica
-4. **Análisis de competencia**: Entender por qué se van los clientes premium
-
-## 👨‍💻 Autor
-
-**Tu Nombre**
-- LinkedIn: [tu-perfil]
-- Email: [tu-email]
-- GitHub: [tu-github]
 
 ## 📄 Licencia
 
-Este proyecto está bajo la Licencia MIT - ver el archivo [LICENSE](LICENSE) para detalles.
+Este proyecto está bajo la Licencia MIT.
 
 ---
 
