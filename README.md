@@ -112,7 +112,7 @@ El proyecto abordó el **problema crítico del desbalanceo de clases** (73% No C
 - **Precision**: 50.4% - Balance aceptable de falsos positivos  
 - **Recall**: 79.4% - **Detecta casi 8 de cada 10 clientes que se van**
 - **F1-Score**: 0.617 - Mejor balance general entre métricas
-- **Umbral optimizado**: 35% (vs 50% default)
+- **Umbral optimizado**: 25% (vs 50% default)
 
 ### Mejora vs Modelo Base
 - **Recall original**: 49.2% → **Recall final**: 79.4%
